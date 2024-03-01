@@ -5,14 +5,10 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  ImageBackground,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth'; // Import Firebase Auth
 import firestore from '@react-native-firebase/firestore'; // Import Firestore
-
-const backgroundImage =
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq_XrngoUoBOuc1Sq9H1ptaq0t_VsYsbKunQ&usqp=CAU';
 
 const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -44,57 +40,48 @@ const SignupScreen = ({navigation}) => {
   };
 
   return (
-    <ImageBackground
-      source={{uri: backgroundImage}}
-      style={styles.backgroundImage}>
-      <View style={styles.container}>
-        <TextInput
-          value={email}
-          onChangeText={text => setEmail(text)}
-          placeholder="Enter Email"
-          style={styles.input}
-        />
-        <TextInput
-          value={password}
-          onChangeText={text => setPassword(text)}
-          placeholder="Enter Password"
-          secureTextEntry
-          style={styles.input}
-        />
-        {/* Role selection options */}
-        <View style={styles.roleSelection}>
-          <Text style={styles.roleLabel}>Select Role:</Text>
-          <TouchableOpacity
-            style={[
-              styles.roleButton,
-              role === 'customer' && styles.selectedRole,
-            ]}
-            onPress={() => setRole('customer')}>
-            <Text style={styles.roleButtonText}>Customer</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.roleButton,
-              role === 'employee' && styles.selectedRole,
-            ]}
-            onPress={() => setRole('employee')}>
-            <Text style={styles.roleButtonText}>Employee</Text>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity style={styles.signupButton} onPress={handleSignup}>
-          <Text style={styles.buttonText}>Signup</Text>
+    <View style={styles.container}>
+      <TextInput
+        value={email}
+        onChangeText={text => setEmail(text)}
+        placeholder="Enter Email"
+        style={styles.input}
+      />
+      <TextInput
+        value={password}
+        onChangeText={text => setPassword(text)}
+        placeholder="Enter Password"
+        secureTextEntry
+        style={styles.input}
+      />
+      {/* Role selection options */}
+      <View style={styles.roleSelection}>
+        <Text style={styles.roleLabel}>Select Role:</Text>
+        <TouchableOpacity
+          style={[
+            styles.roleButton,
+            role === 'customer' && styles.selectedRole,
+          ]}
+          onPress={() => setRole('customer')}>
+          <Text style={styles.roleButtonText}>Customer</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.roleButton,
+            role === 'employee' && styles.selectedRole,
+          ]}
+          onPress={() => setRole('employee')}>
+          <Text style={styles.roleButtonText}>Employee</Text>
         </TouchableOpacity>
       </View>
-    </ImageBackground>
+      <TouchableOpacity style={styles.signupButton} onPress={handleSignup}>
+        <Text style={styles.buttonText}>Signup</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -107,7 +94,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: 'black',
-    color: 'white', // text color
+    color: 'black', // text color
   },
   signupButton: {
     backgroundColor: 'green',
@@ -125,7 +112,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   roleLabel: {
-    color: 'white',
+    color: 'black',
     marginRight: 10,
   },
   roleButton: {
