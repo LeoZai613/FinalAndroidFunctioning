@@ -22,18 +22,10 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
-// Your Firebase config
 const firebaseConfig = {
-  apiKey: 'AIzaSyAOoiO2KNEIKtvgq2CbhplkDsq2-5DATpI',
-  authDomain: 'leon-firebase-authentication.firebaseapp.com',
-  projectId: 'leon-firebase-authentication',
-  storageBucket: 'leon-firebase-authentication.appspot.com',
-  messagingSenderId: '766866374770',
-  appId: '1:766866374770:web:7cc32bb98709bfbfb082eb',
-  measurementId: 'G-YR51QZ3QHL',
+  // Your Firebase config
 };
 
-// Initialize Firebase only if there isn't an instance already
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
 const db = getFirestore(app);
 const storage = getStorage(app);
