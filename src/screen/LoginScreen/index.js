@@ -6,22 +6,20 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import {LoginButton, AccessToken} from 'react-native-fbsdk-next'; // Import Facebook SDK components
-import auth from '@react-native-firebase/auth'; // Import Firebase Auth
+import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
+import auth from '@react-native-firebase/auth';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    // Clear any existing authentication state
     auth().signOut();
   }, []);
 
   const loginUser = async () => {
     try {
       await auth().signInWithEmailAndPassword(email, password);
-      // Navigate to the dashboard or profile screen after successful login
       navigation.navigate('UserProfile');
     } catch (error) {
       console.error('Login failed:', error.message);
@@ -29,25 +27,18 @@ const LoginScreen = ({navigation}) => {
     }
   };
 
-  // Function to handle Facebook login
   const handleFacebookLogin = async accessToken => {
     try {
-      // Create a Firebase credential with the Facebook access token
       const credential = auth.FacebookAuthProvider.credential(accessToken);
-
-      // Use the Firebase credential to sign in
-      const firebaseUser = await auth().signInWithCredential(credential);
-
-      // Navigate to the dashboard or profile screen after successful login
+      await auth().signInWithCredential(credential);
       navigation.navigate('UserProfile');
     } catch (error) {
       console.error('Firebase login error:', error);
     }
   };
 
-  // Function to handle "Forgot Password?" action
   const handleForgotPassword = () => {
-    navigation.navigate('ForgotPasswordScreen'); // Navigate to the ForgotPassword screen
+    navigation.navigate('ForgotPasswordScreen');
   };
 
   return (
@@ -56,21 +47,19 @@ const LoginScreen = ({navigation}) => {
         value={email}
         onChangeText={text => setEmail(text)}
         placeholder="Enter Email"
-        style={[styles.input, {color: 'black'}]} // Set text color to black
+        style={styles.input}
       />
       <TextInput
         value={password}
         onChangeText={text => setPassword(text)}
         placeholder="Enter Password"
         secureTextEntry
-        style={[styles.input, {color: 'black'}]} // Set text color to black
+        style={styles.input}
       />
       <TouchableOpacity
         style={styles.forgotPassword}
         onPress={handleForgotPassword}>
-        <Text style={[styles.forgotPasswordText, {color: 'black'}]}>
-          Forgot Password?
-        </Text>
+        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.loginButton} onPress={loginUser}>
         <Text style={styles.buttonText}>Login</Text>
@@ -84,7 +73,6 @@ const LoginScreen = ({navigation}) => {
           } else {
             AccessToken.getCurrentAccessToken().then(data => {
               if (data) {
-                // Handle successful login with the access token
                 handleFacebookLogin(data.accessToken.toString());
               }
             });
@@ -101,32 +89,34 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#ffffff',
   },
   input: {
     width: '80%',
     height: 40,
-    margin: 12,
+    marginVertical: 10,
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: 'black',
-    // Removed color property to allow default text color
   },
   loginButton: {
     backgroundColor: 'blue',
-    padding: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 40,
     borderRadius: 5,
     marginTop: 20,
   },
   buttonText: {
     color: 'white',
     textAlign: 'center',
+    fontSize: 16,
   },
   forgotPassword: {
     marginTop: 10,
   },
   forgotPasswordText: {
     textDecorationLine: 'underline',
-    // Removed color property to allow default text color
+    color: 'blue',
   },
 });
 
