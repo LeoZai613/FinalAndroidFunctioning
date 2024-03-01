@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "766866374770",
+    "project_id": "leon-firebase-authentication",
+    "storage_bucket": "leon-firebase-authentication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766866374770:android:4a1298d6258a62a0b082eb",
+        "android_client_info": {
+          "package_name": "org.reactjs.native.example.Batch5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766866374770-7cli7t5fb1ncqq53ou2b4ql1q4n3njb6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnwBAECbERAlrfQEv6j8hNKFYYXlEVico"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766866374770-7cli7t5fb1ncqq53ou2b4ql1q4n3njb6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "766866374770-5rbhabrum9dohf352cvpuvl9sin6kjl2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.Batch5"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
