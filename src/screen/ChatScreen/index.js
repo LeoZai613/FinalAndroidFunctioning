@@ -8,7 +8,6 @@ import {
   FlatList,
   StyleSheet,
   Image,
-  Platform,
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
@@ -23,7 +22,16 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
-// ... existing firebaseConfig remains the same
+// Your Firebase config
+const firebaseConfig = {
+  apiKey: 'AIzaSyAOoiO2KNEIKtvgq2CbhplkDsq2-5DATpI',
+  authDomain: 'leon-firebase-authentication.firebaseapp.com',
+  projectId: 'leon-firebase-authentication',
+  storageBucket: 'leon-firebase-authentication.appspot.com',
+  messagingSenderId: '766866374770',
+  appId: '1:766866374770:web:7cc32bb98709bfbfb082eb',
+  measurementId: 'G-YR51QZ3QHL',
+};
 
 // Initialize Firebase only if there isn't an instance already
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
@@ -85,7 +93,7 @@ const ChatScreen = () => {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        const source = {uri: response.uri};
+        const source = {uri: response.assets[0].uri};
         setImage(source);
       }
     });
@@ -101,9 +109,9 @@ const ChatScreen = () => {
   };
 
   const sendMessageWithImage = async () => {
-    if (image && newMessage.trim() !== '') {
-      const imageUrl = await uploadImage(image.uri);
-      try {
+    try {
+      if (image && newMessage.trim() !== '') {
+        const imageUrl = await uploadImage(image.uri);
         await addDoc(collection(db, 'messages'), {
           text: newMessage.trim(),
           username: username || 'Anonymous',
@@ -112,9 +120,11 @@ const ChatScreen = () => {
         });
         setNewMessage('');
         setImage(null);
-      } catch (error) {
-        console.error('Error sending message:', error);
+      } else {
+        console.log('Image or message is missing');
       }
+    } catch (error) {
+      console.error('Error sending message with image:', error);
     }
   };
 
@@ -163,11 +173,6 @@ const ChatScreen = () => {
         <TouchableOpacity style={styles.sendButton} onPress={pickImage}>
           <Text style={styles.sendButtonText}>Pick Image</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.sendButton}
-          onPress={sendMessageWithImage}>
-          <Text style={styles.sendButtonText}>Send Image</Text>
-        </TouchableOpacity>
       </View>
       {image && (
         <View style={styles.previewContainer}>
@@ -175,7 +180,7 @@ const ChatScreen = () => {
           <TouchableOpacity
             style={styles.sendButton}
             onPress={sendMessageWithImage}>
-            <Text style={styles.sendButtonText}>Upload & Send</Text>
+            <Text style={styles.sendButtonText}>Upload & Send Image</Text>
           </TouchableOpacity>
         </View>
       )}
